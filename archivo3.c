@@ -4,6 +4,7 @@
 #include<stdlib.h>
 int imprimirlibro();
 int agregarlibro();
+int salto();
 struct libro
 {
     char titulo[30];
@@ -15,14 +16,16 @@ struct libro
     char isbn[21];
 }libro;
 
-int main(){
+int main(){ //Funcion que pregunta datos
     char ayu[5];
     char deci, ele;
     char uno[]="Pasta blanda";
     char dos[]="Pasta Dura";
     int opc;
     do{
-    
+
+    salto();
+
     printf("\nInserta el titulo del libro:=> ");
     fgets(libro.titulo,30,stdin);
     system("cls");
@@ -49,9 +52,9 @@ int main(){
         switch (opc)
         {
             case 1:
-                strcpy(libro.formato,"blando");break;
+                strcpy(libro.formato,"bland");break;
             case 2:
-                strcpy(libro.formato,"duro");break;
+                strcpy(libro.formato,"dura");break;
             default:
                 printf("Por favor, introduzca una opcion valida\n");break;
         }
@@ -72,20 +75,22 @@ int main(){
     printf("\nPara 'si' pulse (s), para 'no' cualquier otro boton: =>");
     scanf("%c",&ele);
     setbuf(stdin,NULL);
+
     if(ele=='s'){
         agregarlibro();
     }
+
     printf("\n%cQuiere agregar otro libro  ?(s|n):=> ",168);
     scanf("%s", &deci);
     system("cls");
     setbuf(stdin,NULL);
-
+    
     }while(deci=='s' || deci == 'S');
 
     return 0;
 }
 
-int agregarlibro( ){
+int agregarlibro( ){//coloca los datos pedidos en el archivo si se le sa guardar
     FILE *bib;
     bib=fopen("biblioteca.txt","a");
     if (bib == NULL){
@@ -97,7 +102,7 @@ int agregarlibro( ){
     fprintf(bib,"%s",libro.autor);
     fprintf(bib,"%s",libro.editorial);
     fprintf(bib,"%s",libro.isbn);
-    fprintf(bib,"%s",libro.formato);
+    fprintf(bib,"Pasta %s\n",libro.formato);
     fprintf(bib,"%s",libro.cantidad);
     fprintf(bib,"%s",libro.precio);
     fclose(bib);
@@ -105,7 +110,7 @@ int agregarlibro( ){
     return 0;
 }
 
-int imprimirlibro(){
+int imprimirlibro(){//imprime el libro para ver si se escribio bien antes de guardarlo
     printf("\nTITULO: %s", libro.titulo);
     printf("\nAUTOR: %s", libro.autor);
     printf("\nEDITORIAL: %s", libro.editorial);
@@ -114,4 +119,15 @@ int imprimirlibro(){
     printf("\nEXISRENCIA: %s", libro.cantidad);
     printf("\nPRECIO: %s", libro.precio);
     
+}
+
+int salto(){
+    FILE *bib;
+    bib=fopen("biblioteca.txt","a");
+    if (bib == NULL){
+        perror("Error en la apertura del archivo");
+        return -1;
+    }
+    fprintf(bib,"\n");
+    fclose(bib);    
 }
