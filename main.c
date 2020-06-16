@@ -16,7 +16,7 @@ int main()//Menus. Funcion principal -Diego Monroy 13/06/2020
             system("cls");
             printf("Bienvenido\n\n\n");
             printf("Escoje una opcion\n");
-            printf("1)Admin\n2)Usuario\n");
+            printf("1)Admin\n2)Usuario\n3)Imprimir estructura\n4)Finalizar programa");
             scanf("%i", &opc);
             switch (opc)
             {
@@ -78,6 +78,14 @@ int main()//Menus. Funcion principal -Diego Monroy 13/06/2020
                 break;
             case 3:
                 print_list(l);
+                printf("enter par continuar");
+                getch();
+                goto menu;
+                break;
+            case 4:
+                empty_list(l);
+                free(l);
+                return 1;
                 break;
             default:
                 printf("Opcion no valida, presiona cualquier tecla para continuar\n");
@@ -87,7 +95,4 @@ int main()//Menus. Funcion principal -Diego Monroy 13/06/2020
                 break;
             }
         }
-    empty_list(l);
-    free(l);
-    return 1;
 }
