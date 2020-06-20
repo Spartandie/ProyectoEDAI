@@ -13,6 +13,11 @@ struct _node{
     node *next;
     node *prev;
 };
+typedef struct _DATA dnode;
+struct _DATA{
+    int data;
+    dnode *next;
+};
 //Crea el nodo -Diego 15/06/2020
 node *create_node(char titulo[], char autor[], char editorial[], char isbn[], char formato[], char cantidad[], char precio[]);
 bool remove_node(node *n); //Remueve un nodo -Diego 15/06/2020
