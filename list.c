@@ -2,6 +2,8 @@
 #include "list.h"
 #include<stdio.h>
 #include<string.h>
+#include "files.h"
+void empty(char temp[], int tam);
 list *create_list()//crea la lista doble -Diego 14/06/2020
 {
     list *t;
@@ -10,7 +12,7 @@ list *create_list()//crea la lista doble -Diego 14/06/2020
     t->tail=NULL;
     return t;
 }
-bool refresh_list(list *l, char titulo[], char autor[], char editorial[], char isbn[], char formato[], char cantidad[], char precio[])//
+bool refresh_list(list *l, char titulo[], char autor[], char editorial[], char isbn[], char formato[], char cantidad[], char precio[])
 {
     if (l!=NULL)
     {
@@ -25,18 +27,20 @@ bool refresh_list(list *l, char titulo[], char autor[], char editorial[], char i
         l->tail->next = new;
         new->prev = l->tail;
         new->next=l->head;
-        l->tail->prev=new;
+        l->head->prev=new;
         l->tail = new;
         l->nlib++;
+
         return true;
     }
     
 }
 bool refresh(list *l)
 {
-    char titulo[40], autor[30], editorial[20], isbn[11], formato[12], cantidad[8], precio[6], temp[40], aux;
+    char titulo[40]="\0", autor[40]="\0", editorial[40]="\0", isbn[40]="\0", formato[40]="\0";
+    char cantidad[40]="\0", precio[40]="\0", temp[40]="\0", aux;
     FILE *bib;
-    int renglon=0, j=0;
+    int renglon=0, j=0, linea=0;
     bib=fopen("biblioteca.txt","r");
     if (bib == NULL){
         perror("Error en la apertura del archivo");
@@ -44,76 +48,144 @@ bool refresh(list *l)
     }
     rewind(bib);
     empty_list(l);
-    while(!feof(bib))
+    while (!feof(bib))
     {
         aux='\0';
         aux=fgetc(bib);
-        if (aux!='\n')
+        if (!feof(bib))
         {
             temp[j]=aux;
             j++;
         }
         if (aux=='\n')
         {
+            linea++;
             renglon++;
             j=0;
             switch (renglon)
             {
                 case 1:
-                    strcpy(titulo, temp);
+                    strcpy_s(titulo,40, temp);
                     break;
                 case 2:
-                    strcpy(autor, temp);
+                    strcpy_s(autor, 40, temp);
                     break;
                 case 3:
-                    strcpy(editorial, temp);
-                    //printf("%s\n", editorial);
+                    strcpy_s(editorial,40, temp);
                     break;
                 case 4:
-                    strcpy(isbn, temp);
-                    //printf("%s\n", isbn);
+                    strcpy_s(isbn, 40, temp);
                     break;
                 case 5:
-                    strcpy(formato, temp);
-                    //printf("%s\n", formato);
+                    strcpy_s(formato,40, temp);
                     break;
                 case 6:
-                    strcpy(cantidad, temp);
-                    //printf("%s\n", cantidad);
+                    strcpy_s(cantidad,40, temp);
                     break;
                 case 7:
-                    strcpy(precio, temp);
-                    //printf("%s\n", precio);
-                    renglon=0;
-                    refresh_list(l, titulo, autor, editorial, isbn, formato, cantidad, precio);
+                    strcpy_s(precio, 40, temp);
                     break;
             }
-            empty(temp);
-                
-        }
-        if(feof(bib))
-        {
-            strcpy(precio, temp);
-            refresh_list(l, titulo, autor, editorial, isbn, formato, cantidad, precio);
+            empty(temp , 40);
+            if (renglon==7)
+            {
+                refresh_list(l, titulo, autor, editorial, isbn, formato, cantidad, precio);
+                renglon=0;
+                empty(titulo, 40);
+                empty(autor, 40);
+                empty(editorial, 40);
+                empty(isbn, 40);
+                empty(formato, 40);
+                empty(cantidad, 40);
+                empty(precio, 40);
+            }
         }
     }
     fclose(bib);
     return true;
 }
-void empty(char temp[])//Vacia la variable temporal Diego -14/06/2020
+void empty_list(list *l)
 {
-    for (int i = 0; i < 40; i++)
+    if(is_empty_list(l)) return;
+    while(remove_nodes(l));
+    
+}
+
+bool is_empty_list(list *l)
+{
+    if(l->head == NULL && l->tail == NULL) return true;
+    return false;
+}
+void print_list(list *l)
+{
+    node *t;
+    for(t=l->head;t->next!=l->head;t=t->next)
+    {
+        printf("%s", t->titulo);
+        printf("%s", t->autor);
+        printf("%s", t->editorial);
+        printf("%s", t->isbn);
+        printf("%s", t->formato);
+        printf("%s", t->cantidad);
+        printf("%s", t->precio);
+    }
+        printf("%s", t->titulo);
+        printf("%s", t->autor);
+        printf("%s", t->editorial);
+        printf("%s", t->isbn);
+        printf("%s", t->formato);
+        printf("%s", t->cantidad);
+        printf("%s", t->precio);
+}
+void empty(char temp[], int tam)//Vacia la variable temporal Diego -14/06/2020
+{
+    for (int i = 0; i < tam; i++)
     {
         temp[i]='\0';
     }
 }
-void empty_list(list *l)
+bool remove_lib(list *l, node *t)
 {
-    if(is_empty_list(l)) return;
-    while(remove_init(l));
     
+    if(l == NULL || is_empty_list(l)) return false;
+    if(l->head==l->tail)
+    {
+        remove_node(l->head);
+        l->head = l->tail = NULL;
+        l->nlib = 0;
+        return true;
+    }
+    if(t->prev==l->tail)
+    {       
+        l->head=t->next;
+        l->tail->next=l->head;
+        l->head->prev=l->tail;
+        t->prev=NULL;
+        t->next=NULL;
+        remove_node(t);
+        free(t);
+        return true;
+    }
+    if (t->next==l->head)
+    {
+        l->tail=t->prev;
+        l->tail->next=l->head;
+        l->head->prev=l->tail;
+        t->prev=NULL;
+        t->next=NULL;
+        remove_node(t);
+        free(t);
+        return true;
+    }
+    t->prev->next=t->next;
+    t->next->prev=t->prev;
+    t->prev=NULL;
+    t->next=NULL;
+    remove_node(t);
+    free(t);
+    return true;
 }
-bool remove_init(list *l)
+bool remove_nodes(list *l)
 {
     if(l == NULL || is_empty_list(l)) return false;
     if(l->head ==l->tail){
@@ -130,30 +202,4 @@ bool remove_init(list *l)
     remove_node(l->head);
     l->head = t;
     return true;
-}
-bool is_empty_list(list *l)
-{
-    if(l->head == NULL && l->tail == NULL) return true;
-    return false;
-}
-void print_list(list *l)
-{
-    node *t;
-    for(t=l->head;t->next!=l->head;t=t->next)
-    {
-        printf("%s\n", t->titulo);
-        printf("%s\n", t->autor);
-        printf("%s\n", t->editorial);
-        printf("%s\n", t->isbn);
-        printf("%s\n", t->formato);
-        printf("%s\n", t->cantidad);
-        printf("%s\n", t->precio);
-    }
-        printf("%s\n", t->titulo);
-        printf("%s\n", t->autor);
-        printf("%s\n", t->editorial);
-        printf("%s\n", t->isbn);
-        printf("%s\n", t->formato);
-        printf("%s\n", t->cantidad);
-        printf("%s\n", t->precio);
 }

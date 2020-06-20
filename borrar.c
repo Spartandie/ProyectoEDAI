@@ -1,69 +1,49 @@
+#include "files.h"
 #include<stdio.h>
 #include<string.h>
-#include<stdbool.h>
-#include<stdlib.h>
-void empty(char temp[]);
-int main(){
-    char aux, temp[40], titulo[40];
-    FILE *bib,*bibtemp;
-    int  j =0, i=1;
-    printf("Que libro se desea borrar por titulo: => ");
-    gets(titulo);
-    bibtemp=fopen("nuevo.txt","a");
-    bib=fopen("biblioteca.txt","r");
-    if (bib == NULL){
-        perror("Error en la apertura del archivo");
-        return false;
+bool borrar(list *l, int c)
+{
+    char titulo[40]="\0";
+    if(c==0)
+    {
+        printf("Que libro se quiere borrar?\n");
+        setbuf(stdin, NULL);
+        fgets(titulo, 40, stdin);
+        node *t=buscar_nodo(l, 1, titulo);
+        remove_lib(l, t);
+        return true;
     }
-    rewind(bib);
-    empty(temp);
-    while(!feof(bib))
+    else
+    {
+        /* code */
+    }
+    
+}
+int check(int actual_or_new)
+{
+    FILE *bibtemp;
+    if(actual_or_new==1)
+    {
+        bibtemp=fopen("nuevo.txt","r");
+    }
+    else
+    {
+        bibtemp=fopen("biblioteca.txt","r");
+    }
+    
+    char aux;
+    int cont=0;
+    rewind(bibtemp);
+    while(!feof(bibtemp))
     {
         aux='\0';
-        aux=fgetc(bib);
-        if (aux!='\n' && !feof(bib))
+        aux=fgetc(bibtemp);
+        if(aux=='\n')
         {
-            temp[j]=aux;
-            j++;
-        }
-        if(aux=='\n' || feof(bib))
-        {
-            j=0;
-            if(strcmp(temp,titulo)!=0)
-            {
-                fprintf(bibtemp,"%s", temp);
-                if(!feof(bib))
-                {
-                    fprintf(bibtemp, "\n");
-                }
-            }
-            if(strcmp(temp,titulo)==0)
-            {
-                while(i<7)
-                {
-                    aux='\0';
-                    aux=fgetc(bib);
-                    if (aux=='\n' || feof(bib))
-                    {
-                        i++;
-                    }   
-                }
-                i=1;
-            }
-            empty(temp);
+            cont++;
         }
     }
+    cont++;
     fclose(bibtemp);
-    fclose(bib);
-    system("DEL biblioteca.txt");
-    system("REN nuevo.txt biblioteca.txt");
-    return 0;
-}
-
-void empty(char temp[])//Vacia la variable temporal Diego -14/06/2020
-{
-    for (int i = 0; i < 40; i++)
-    {
-        temp[i]='\0';
-    }
+    return cont;
 }
