@@ -43,8 +43,8 @@ bool refresh_list(list *l, char titulo[], char autor[], char editorial[], char i
 }
 bool refresh(list *l)
 {
-    char titulo[40]="\0", autor[40]="\0", editorial[40]="\0", isbn[40]="\0", formato[40]="\0";
-    char cantidad[40]="\0", precio[40]="\0", temp[40]="\0", aux;
+    char titulo[60]="\0", autor[60]="\0", editorial[60]="\0", isbn[60]="\0", formato[60]="\0";
+    char cantidad[60]="\0", precio[60]="\0", temp[60]="\0", aux;
     FILE *bib;
     int renglon=0, j=0;
     bib=fopen("biblioteca.txt","r");
@@ -70,39 +70,39 @@ bool refresh(list *l)
             switch (renglon)
             {
                 case 1:
-                    strcpy_s(titulo,40, temp);
+                    strcpy_s(titulo,60, temp);
                     break;
                 case 2:
-                    strcpy_s(autor, 40, temp);
+                    strcpy_s(autor, 60, temp);
                     break;
                 case 3:
-                    strcpy_s(editorial,40, temp);
+                    strcpy_s(editorial,60, temp);
                     break;
                 case 4:
-                    strcpy_s(isbn, 40, temp);
+                    strcpy_s(isbn, 60, temp);
                     break;
                 case 5:
-                    strcpy_s(formato,40, temp);
+                    strcpy_s(formato,60, temp);
                     break;
                 case 6:
-                    strcpy_s(cantidad,40, temp);
+                    strcpy_s(cantidad,60, temp);
                     break;
                 case 7:
-                    strcpy_s(precio, 40, temp);
+                    strcpy_s(precio, 60, temp);
                     break;
             }
-            empty(temp , 40);
+            empty(temp , 60);
             if (renglon==7)
             {
                 refresh_list(l, titulo, autor, editorial, isbn, formato, cantidad, precio);
                 renglon=0;
-                empty(titulo, 40);
-                empty(autor, 40);
-                empty(editorial, 40);
-                empty(isbn, 40);
-                empty(formato, 40);
-                empty(cantidad, 40);
-                empty(precio, 40);
+                empty(titulo, 60);
+                empty(autor, 60);
+                empty(editorial, 60);
+                empty(isbn, 60);
+                empty(formato, 60);
+                empty(cantidad, 60);
+                empty(precio, 60);
             }
         }
     }
@@ -213,7 +213,7 @@ bool remove_nodes(list *l)
 }
 void reclista(list *l, clist *c){
 
-    char qst, temp[40]="\0";
+    char qst, temp[60]="\0";
     node *rec;
     rec = l->head;
     int cantidad;
@@ -239,14 +239,18 @@ void reclista(list *l, clist *c){
                 break;
             
             case 'c':
-                cantidad=atoi(rec->cantidad);
-                cantidad--;
-                sprintf(temp, "%d\n", cantidad);
-                strcpy_s(rec->cantidad, 40, temp);
-                add_carrito(c,rec);
-                rec=rec->next;
-                borrar(l, 1, rec->prev);
-                printf("Libro a%cadido!\n",164);
+                if(add_carrito(c,rec))
+                {
+                    cantidad=atoi(rec->cantidad);
+                    cantidad--;
+                    sprintf(temp, "%d\n", cantidad);
+                    strcpy_s(rec->cantidad, 60, temp);
+                    rec=rec->next;
+                    borrar(l, 1, rec->prev);
+                    printf("Libro a%cadido!\n",164);
+                }
+                printf("Presiona enter para continuar\n");
+                getch();    
                 break;
 
             case 'o':
@@ -296,15 +300,23 @@ void remove_cnodes(clist *c)
 }
 bool borrar(list *l, int c, node* t)
 {
-    char titulo[40]="\0";
+    char titulo[60]="\0";
     if(c==0)
     {
         printf("Que libro se quiere borrar?\n");
         setbuf(stdin, NULL);
-        fgets(titulo, 40, stdin);
+        fgets(titulo, 60, stdin);
         node *t=buscar_nodo(l, 1, titulo);
-        remove_lib(l, t);
-        return true;
+        if(t!=NULL)
+        {
+            remove_lib(l, t);
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+        
     }
     else
     {

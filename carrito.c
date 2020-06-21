@@ -2,21 +2,46 @@
 #include "list.h"
 #include<stdio.h>
 #include<stdlib.h>
+#include<string.h>
 bool add_carrito(clist *c, node *t)
 {
     if(c == NULL){
 		return false;
 	}
 	cnode *n=create_cnode(t->titulo, t->autor, t->editorial, t->isbn, t->formato, t->precio);
-
-	if(c->head == NULL){
+	if(c->head == NULL)
+    {
 		c->head = n;
 		c->tail = n;
-	}else{
+        c->nlib=1;
+        return true;
+	}
+    cnode *f=c->head;
+    for(int i=0;i!=c->nlib;i++)
+    {
+        if(strcmp(f->titulo,n->titulo)==0)
+        {  
+            break;
+        }
+        if(f->next!=NULL)
+        {
+            f=f->next;
+        }   
+    }
+    if(strcmp(f->titulo,n->titulo)==0)
+    {
+        printf("El libro ya fue agregado con anteroridad\n");
+        
+        remove_cnode(n);
+        free(n);
+        return false;
+    }
+    if(c->head != NULL)
+    {
 		n->next = c->head;
 		c->head = n;
+        c->nlib++;
 	}
-	c->nlib++;
 	return true;
 
 }

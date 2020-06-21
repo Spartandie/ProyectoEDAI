@@ -31,7 +31,7 @@ bool remove_lib(list *l, node *t);
 bool insertar_final(list* l, char titulo[], char autor[], char editorial[], char isbn[], char formato[], char cantidad[], char precio[]);
 void reclista(list *l, clist *c);
 bool borrar(list *l, int c, node *t);
-
+node *buscar_nodo(list *l,int sel, char cadena[]);
 //Carrito
 clist *create_clist();//crea el carrito -Diego 20/06/2020
 bool add_carrito(clist *c, node *t);

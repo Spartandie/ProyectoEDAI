@@ -11,9 +11,9 @@ int main()//Menus. Funcion principal -Diego Monroy 13/06/2020
 {
     int opc;
     int sel, cantidad;
-    char cadena[40]="\0";
+    char cadena[60]="\0";
     list *l=create_list();
-    list *c=create_list();
+    clist *c=create_clist();
     if(check(0)>=7)
     {
         refresh(l);
@@ -25,6 +25,7 @@ int main()//Menus. Funcion principal -Diego Monroy 13/06/2020
             printf("Escoje una opcion\n");
             printf("1)Admin\n2)Usuario\n3)Imprimir estructura\n4)Finalizar programa");
             scanf("%i", &opc);
+            setbuf(stdin, NULL);
             switch (opc)
             {
             case 1:
@@ -76,6 +77,7 @@ int main()//Menus. Funcion principal -Diego Monroy 13/06/2020
                     printf("Escoja una opcion\n");
                     printf("1)Ver lista de libros\n2)Buscar libro\n3)Ver carrito\n4)Volver a menu\n");
                     scanf("%i", &opc);
+                    setbuf(stdin, NULL);
                     switch (opc)
                     {
                     case 1:
@@ -88,27 +90,28 @@ int main()//Menus. Funcion principal -Diego Monroy 13/06/2020
                             system("cls");
                             printf("Buscar libro por: 1)Titulo 2)Autor 3)Isbn");
                             scanf("%i", &opc);
+                            setbuf(stdin, NULL);
                             if (opc==1 || opc==2 || opc==3)
                             {
-                                    char temp[40]="\0";
+                                    char temp[60]="\0";
                                     switch (opc)
                                     {
                                         case 1:
                                             printf("Ingrese el titulo del libro: ");
                                             setbuf(stdin, NULL);
-                                            fgets(cadena, 40, stdin);
+                                            fgets(cadena, 60, stdin);
                                             sel=1;
                                         break;
                                         case 2:
                                             printf("Ingrese el autor del libro: ");
                                             setbuf(stdin, NULL);
-                                            fgets(cadena, 40, stdin);
+                                            fgets(cadena, 60, stdin);
                                             sel=2;
                                         break;
                                         case 3:
                                             printf("Ingrese el isbn del libro: ");
                                             setbuf(stdin, NULL);
-                                            fgets(cadena, 40, stdin);
+                                            fgets(cadena, 60, stdin);
                                             sel=3;
                                         break;
                                     
@@ -125,19 +128,22 @@ int main()//Menus. Funcion principal -Diego Monroy 13/06/2020
                                         printf("Precio:$%s", t->precio);
                                         printf("\n%cDesea a%cadir al carrito el libro? Si=1 No=otro", 168, 164);
                                         scanf("%i", &opc);
+                                        setbuf(stdin, NULL);
                                         if (opc==1)
                                         {
-                                            
-                                            cantidad=atoi(t->cantidad);
-                                            cantidad--;
-                                            sprintf(temp, "%d\n", cantidad);
-                                            strcpy_s(t->cantidad, 40, temp);
-                                            add_carrito(c,t);
-                                            printf("Libro a%cadido!\n",164);
+                                            if(add_carrito(c,t))
+                                            {
+                                                cantidad=atoi(t->cantidad);
+                                                cantidad--;
+                                                sprintf(temp, "%d\n", cantidad);
+                                                strcpy_s(t->cantidad, 60, temp);
+                                                printf("Libro a%cadido!\n",164);
+                                            }
                                         }
                                     }
                                     printf("%cDesea buscar otro libro? Si=1 No=otro", 168);
                                     scanf("%i", &opc);
+                                    setbuf(stdin, NULL);
                                     if(opc==1)
                                     {
                                         goto search;
@@ -162,6 +168,7 @@ int main()//Menus. Funcion principal -Diego Monroy 13/06/2020
                             system("cls");
                             printf("1)Confirmar compra\n2)Seguir explorando catalogo\n");
                             scanf("%i", &opc);
+                            setbuf(stdin, NULL);
                             switch (opc)
                             {
                                 case 1:
