@@ -3,13 +3,13 @@
 #include<stdbool.h>
 typedef struct _node node;
 struct _node{
-    char titulo[40];
-    char autor[40];
-    char editorial[40];
-    char isbn[40];
-    char formato[40];
-    char cantidad[40];
-    char precio[40];
+    char titulo[60];
+    char autor[60];
+    char editorial[60];
+    char isbn[60];
+    char formato[60];
+    char cantidad[60];
+    char precio[60];
     node *next;
     node *prev;
 };

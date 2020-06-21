@@ -3,10 +3,10 @@ Suzanne Collins
 Oceano
 9786074001907
 Pasta blanda
-25
+24
 325
 Harry potter y el prisionero de askaban
-J.K. Rowling
+JK Rowling
 Salamandra
 9788498386615
 Pasta blanda
@@ -27,7 +27,7 @@ Pasta dura
 30
 450
 Harry potter y la orden del fenix
-J.K. Rowling
+JK Rowling
 Salamandra
 9788478887446
 Pasta dura
@@ -41,7 +41,7 @@ Pasta dura
 18
 388
 Harry potter y el misterio del principe
-J.K. Rowling
+JK Rowling
 Salamandra
 9788478889914
 Pasta dura
@@ -76,7 +76,7 @@ Pasta blanda
 24
 159
 Harry potter y la camara secreta
-J.K. Rowling
+JK Rowling
 Salamandra
 9788478887606
 Pasta dura
@@ -97,7 +97,7 @@ Pasta dura
 5
 368
 Harry potter y el caliz de fuego
-J.K. Rowling
+JK Rowling
 Salamandra
 9788498384444
 Pasta dura
@@ -111,7 +111,7 @@ Pasta blanda
 49
 145
 Harry potter y las reliquias de la muerte
-J.K. Rowling
+JK Rowling
 Salamandra
 9788498381412
 Pata dura
@@ -139,7 +139,7 @@ Pasta blanda
 14
 325
 Harry potter and the cursed child
-J.K. Rowling
+JK Rowling
 Scholastic
 9781338099133
 Pasta dura
@@ -153,7 +153,7 @@ Pasta dura
 8
 449
 Harry potter y la piedra filosofal
-J.K. Rowling
+JK Rowling
 Salamandra
 9788498386578
 Pasta dura
@@ -164,12 +164,12 @@ Robert Fisher
 Obelisco
 9788497772303
 Pasta blanda
-52
+51
 210
 Pedro paramo
 Juan Rulfo
 RM
 9789685208550
 Pasta blanda
-28
+24
 135
