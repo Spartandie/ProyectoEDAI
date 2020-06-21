@@ -1,28 +1,175 @@
-Halo the flood
-Patito feo
-tinmunas
-1234567891234
+Los juegos del hambre
+Suzanne Collins
+Oceano
+9786074001907
+Pasta blanda
+25
+325
+Harry potter y el prisionero de askaban
+J.K. Rowling
+Salamandra
+9788498386615
+Pasta blanda
+22
+310
+El principito
+Antoine de Saint-Exupery
+Fontamara
+9786077971191
+Pasta blanda
+40
+75
+El resplandor
+Stephen King
+Debolsillo
+9786073118392
+Pasta dura
+30
+450
+Harry potter y la orden del fenix
+J.K. Rowling
+Salamandra
+9788478887446
 Pasta dura
 4
-500
-Donq uijote
-feoos efam
-naylon
-0987654321123
-pasta blanda
-90
-30
-Divina comediasd
-Patito feo
-tnimunas ot
-6789054783215
-tapa dura
-900
-5000
-Guardianes de la
-galaxia
-asies
-1234567897777
-pasta dura
-399
-400
+490
+Cien años de soledad
+Gabriel Garcia Marquez
+Diana
+9786070737596
+Pasta dura
+18
+388
+Harry potter y el misterio del principe
+J.K. Rowling
+Salamandra
+9788478889914
+Pasta dura
+25
+435
+Carrie
+Stephen King
+Debolsillo
+9786073105507
+Pasta blanda
+40
+160
+Momo
+Michael Ende
+Alfaguara
+9786073135603
+Pasta dura
+1
+269
+Los Juegos del hambre: En llamas
+Suzanne Collins
+Oceano
+9786074003963
+Pasta blanda
+10
+325
+Un mundo feliz
+Aldous Huxley
+Debolsillo
+9786073139076
+Pasta blanda
+24
+159
+Harry potter y la camara secreta
+J.K. Rowling
+Salamandra
+9788478887606
+Pasta dura
+6
+310
+Historias perdidas
+Leon Krauze
+Aguilar
+9786071110947
+Pasta dura
+16
+184
+La insoportable levedad del ser
+Milan Kundera
+Tusquets
+9786074213485
+Pasta dura
+5
+368
+Harry potter y el caliz de fuego
+J.K. Rowling
+Salamandra
+9788498384444
+Pasta dura
+32
+235
+El lector
+Bernhard Schlink
+Anagrama
+9788433966667
+Pasta blanda
+49
+145
+Harry potter y las reliquias de la muerte
+J.K. Rowling
+Salamandra
+9788498381412
+Pata dura
+9
+435
+El principio del placer
+Jose Emilio Pacheco
+Era
+9789684114104
+Pasta blanda
+32
+170
+1984
+George Orwell
+Debolsillo
+9786073116336
+Pasta dura
+12
+209
+Los juegos del hambre: Sinsajo
+Suzanne Collins
+Oceano
+9786074004502
+Pasta blanda
+14
+325
+Harry potter and the cursed child
+J.K. Rowling
+Scholastic
+9781338099133
+Pasta dura
+5
+467
+It
+Stephen King
+Debolsillo
+9786073105521
+Pasta dura
+8
+449
+Harry potter y la piedra filosofal
+J.K. Rowling
+Salamandra
+9788498386578
+Pasta dura
+12
+265
+El caballero de la armadura oxidada
+Robert Fisher
+Obelisco
+9788497772303
+Pasta blanda
+52
+210
+Pedro paramo
+Juan Rulfo
+RM
+9789685208550
+Pasta blanda
+28
+135
