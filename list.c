@@ -3,11 +3,19 @@
 #include<stdio.h>
 #include<string.h>
 #include "files.h"
-void empty(char temp[], int tam);
+#include "carrito.h"
 list *create_list()//crea la lista doble -Diego 14/06/2020
 {
     list *t;
     t=(list*)malloc(sizeof(list));
+    t->head=NULL;
+    t->tail=NULL;
+    return t;
+}
+clist *create_clist()//crea el carrito -Diego 14/06/2020
+{
+    clist *t;
+    t=(clist*)malloc(sizeof(clist));
     t->head=NULL;
     t->tail=NULL;
     return t;
@@ -30,17 +38,15 @@ bool refresh_list(list *l, char titulo[], char autor[], char editorial[], char i
         l->head->prev=new;
         l->tail = new;
         l->nlib++;
-
         return true;
     }
-    
 }
 bool refresh(list *l)
 {
     char titulo[40]="\0", autor[40]="\0", editorial[40]="\0", isbn[40]="\0", formato[40]="\0";
     char cantidad[40]="\0", precio[40]="\0", temp[40]="\0", aux;
     FILE *bib;
-    int renglon=0, j=0, linea=0;
+    int renglon=0, j=0;
     bib=fopen("biblioteca.txt","r");
     if (bib == NULL){
         perror("Error en la apertura del archivo");
@@ -59,7 +65,6 @@ bool refresh(list *l)
         }
         if (aux=='\n')
         {
-            linea++;
             renglon++;
             j=0;
             switch (renglon)
@@ -118,7 +123,7 @@ bool is_empty_list(list *l)
 }
 void print_list(list *l)
 {
-    node *t;
+    node *t=l->head;
     for(t=l->head;t->next!=l->head;t=t->next)
     {
         printf("%s", t->titulo);
@@ -164,6 +169,7 @@ bool remove_lib(list *l, node *t)
         t->next=NULL;
         remove_node(t);
         free(t);
+        l->nlib--;
         return true;
     }
     if (t->next==l->head)
@@ -175,6 +181,7 @@ bool remove_lib(list *l, node *t)
         t->next=NULL;
         remove_node(t);
         free(t);
+        l->nlib--;
         return true;
     }
     t->prev->next=t->next;
@@ -182,6 +189,7 @@ bool remove_lib(list *l, node *t)
     t->prev=NULL;
     t->next=NULL;
     remove_node(t);
+    l->nlib--;
     free(t);
     return true;
 }
@@ -202,4 +210,202 @@ bool remove_nodes(list *l)
     remove_node(l->head);
     l->head = t;
     return true;
+}
+void reclista(list *l, clist *c){
+
+    char qst, temp[40]="\0";
+    node *rec;
+    rec = l->head;
+    int cantidad;
+    setbuf(stdin, NULL);
+    do
+    {
+        
+        printf("Libro actual: \n");
+        printf("Titulo: %sAutor: %sEditorial: %sISBN: %sFormato: %sCantidad: %sPrecio: %s\n", rec->titulo, rec->autor, rec->editorial, rec->isbn, rec->formato, rec->cantidad, rec->precio);
+        printf("Ver siguiente (s)\n");
+        printf("Ver Anterior (a)\n");
+        printf("Agregar al carrito (c)\n");
+        printf("Salir (o)\n");
+        scanf("%c", &qst);
+        setbuf(stdin, NULL);
+        switch(qst){
+            case 's':
+                rec = rec->next;
+                break;
+            
+            case 'a':
+                rec = rec->prev;
+                break;
+            
+            case 'c':
+                cantidad=atoi(rec->cantidad);
+                cantidad--;
+                sprintf(temp, "%d\n", cantidad);
+                strcpy_s(rec->cantidad, 40, temp);
+                add_carrito(c,rec);
+                rec=rec->next;
+                borrar(l, 1, rec->prev);
+                printf("Libro a%cadido!\n",164);
+                break;
+
+            case 'o':
+                break;
+
+            default:
+                printf("Opcion no valida, presiona cualquier tecla para continuar");
+                getch();
+                break;
+        }
+    } while (qst!= 'o');
+
+
+}
+void remove_cnodes(clist *c)
+
+{
+    cnode *t=c->head;
+    if(c->head==NULL)
+    {
+        return;
+    }
+    while (true)
+    {
+        if(c->head==c->tail)
+        {
+            remove_cnode(t);
+            c->head=NULL;
+            c->tail=NULL;
+            break;
+        }
+        if(t->next!=c->tail)//falta caso de un nod
+        {
+            t=t->next;
+        }
+        else
+        {
+            c->tail=t;
+            remove_cnode(t->next);
+            c->tail->next=NULL;
+            t=c->head;
+        }
+        
+
+    }
+    
+}
+bool borrar(list *l, int c, node* t)
+{
+    char titulo[40]="\0";
+    if(c==0)
+    {
+        printf("Que libro se quiere borrar?\n");
+        setbuf(stdin, NULL);
+        fgets(titulo, 40, stdin);
+        node *t=buscar_nodo(l, 1, titulo);
+        remove_lib(l, t);
+        return true;
+    }
+    else
+    {
+        remove_lib(l, t);
+        return true;
+    }
+    
+}
+node *buscar_nodo(list *l,int sel, char cadena[]){
+    int cont=0;
+    char car;
+    node *temp=l->head;
+    switch(sel)
+    {
+        case 1:
+            while (true)
+            {
+                if(strcmp(temp->titulo, cadena)==0)
+                {
+                    return temp;
+                }
+                else
+                {
+                    if(temp->next==l->head)
+                    {
+                        printf("No se encontro el libro\n");
+                        break;
+                    }
+                    temp=temp->next;
+                }
+            }
+        break;
+        case 2:
+            printf("Resultados:\n\n");
+            while (true)
+            {
+                for (; temp->next!=l->head; temp=temp->next)
+                {
+                    if(strcmp(temp->autor, cadena)==0)
+                    {
+                        cont++;
+                        printf("%i.-%s", cont, temp->titulo);   
+                    }
+                }
+                if(strcmp(temp->autor, cadena)==0)
+                    {
+                        cont++;
+                        printf("%i.-%s", cont, temp->titulo);   
+                    }
+                if (temp->next=l->head)
+                {
+                    if(cont!=0)
+                    {
+                        printf("Cual libro quieres? (selecciona el numero): ");
+                        scanf("%i", &cont);
+                        temp=l->head;
+                        for (int i = 0; ; temp=temp->next)
+                        {
+                            if (strcmp(temp->autor, cadena)==0)
+                            {
+                                i++;
+                                if (i==cont)
+                                {
+                                    break;
+                                }
+                                
+                            }
+                        }
+                        return temp;
+                    }
+                    else
+                    {
+                        printf("No se encontraron libros\n");
+                        break;
+                    }
+                    
+                }
+
+            }
+        break;
+        case 3:
+            while (true)
+            {
+                if(strcmp(temp->isbn, cadena)==0)
+                {
+                    return temp;
+                }
+                if(temp->next==l->head)
+                {
+                    printf("No se encontro el libro\n");
+                    break;
+                }
+                else
+                {
+                    temp=temp->next;
+                }
+            }
+        break;
+        default:
+
+        break;
+    }
+    return NULL;
 }

@@ -8,11 +8,13 @@ struct _list
     node *tail;
     int nlib;
 };
-typedef struct _DATA_LIST dlist;
-struct _DATA_LIST
+
+typedef struct _clist clist;
+struct _clist
 {
-    dnode *head;
-    dnode *tail;
+    cnode *head;
+    cnode *tail;
+    int nlib;
 };
 
 //LIST
@@ -24,7 +26,18 @@ bool refresh(list *l);//Pasa las cadenas a la estructura -Diego 16/06/2020
 bool remove_nodes(list *l);//Remueve desde el principio Diego -15/06/2020
 void empty_list(list *l);//Vacia la lista -Diego 15/06/2020
 bool is_empty_list(list *l);//Comprueba si la lista está vacia -Diego 15/06/2020
-void print_list(list *l);//Imprime la lista -Diego 15/06/2020 (Está funcion es temporal y sera borrada)
+void print_list(list *l);//Imprime la lista -Diego 15/06/2020
 bool remove_lib(list *l, node *t);
 bool insertar_final(list* l, char titulo[], char autor[], char editorial[], char isbn[], char formato[], char cantidad[], char precio[]);
+void reclista(list *l, clist *c);
+bool borrar(list *l, int c, node *t);
+
+//Carrito
+clist *create_clist();//crea el carrito -Diego 20/06/2020
+bool add_carrito(clist *c, node *t);
+bool purchase(clist *c);
+void print_clist(clist *c);
+bool is_empty_clist(clist *l);
+void remove_cnode(clist *c);
+void remove_cnodes(clist *c);
 #endif
