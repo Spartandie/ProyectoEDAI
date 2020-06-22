@@ -1,17 +1,9 @@
 #include "files.h"
 #include<stdio.h>
-int check(int actual_or_new)
+int check()
 {
     FILE *bibtemp;
-    if(actual_or_new==1)
-    {
-        bibtemp=fopen("nuevo.txt","r");
-    }
-    else
-    {
-        bibtemp=fopen("biblioteca.txt","r");
-    }
-    
+    bibtemp=fopen("biblioteca.txt","r");    
     char aux;
     int cont=0;
     rewind(bibtemp);

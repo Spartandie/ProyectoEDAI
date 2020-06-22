@@ -16,7 +16,7 @@ int main()//Menus. Funcion principal -Diego Monroy 13/06/2020
     char cadena[60]="\0";
     list *l=create_list();
     clist *c=create_clist();
-    if(check(0)>=7)
+    if(check()>=7)
     {
         refresh(l);
     }
@@ -121,7 +121,7 @@ int main()//Menus. Funcion principal -Diego Monroy 13/06/2020
                         }                        
                         break;
                     case 3:
-                        if(check(0)<7)
+                        if(check()<7)
                         {
                             printf("No hay libros para borrar\nPresione enter para continuar\n");
                             getch();
