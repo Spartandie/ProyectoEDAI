@@ -55,7 +55,7 @@ int main()//Menus. Funcion principal -Diego Monroy 13/06/2020
                     scanf("%i", &opc);
                     switch (opc)
                     {
-                    case 1:
+                    case '1':
                         pedir_datos(l);
                         goto admin;
                         break;
@@ -222,36 +222,44 @@ int main()//Menus. Funcion principal -Diego Monroy 13/06/2020
                                         printf("Formato:%s", t->formato);
                                         printf("Existencias:%s", t->cantidad);
                                         printf("Precio:$%s", t->precio);
-                                        printf("\n%cDesea a%cadir al carrito el libro? Si=1 No=otro\n=> ", 168, 164);
+                                        printf("\n%cDesea a%cadir al carrito el libro? Si=1 No=2\n=> ", 168, 164);
                                         scanf("%i", &opc);
                                         setbuf(stdin,NULL);
-                                        if (opc==1)
+                                        switch (opc)
                                         {
-                                            if(add_carrito(c,t))
-                                            {
-                                                cantidad=atoi(t->cantidad);
-                                                cantidad--;
-                                                sprintf(temp, "%d\n", cantidad);
-                                                strcpy_s(t->cantidad, 60, temp);
-                                                printf("Libro a%cadido!\n",164);
-                                                if(strcmp("0\n", t->cantidad)==0)
+                                            case 1:
+                                                if(add_carrito(c,t))
                                                 {
+                                                    cantidad=atoi(t->cantidad);
+                                                    cantidad--;
+                                                    sprintf(temp, "%d\n", cantidad);
+                                                    strcpy_s(t->cantidad, 60, temp);
+                                                    printf("Libro a%cadido!\n",164);
+                                                    if(strcmp("0\n", t->cantidad)==0)
+                                                    {
                                                         borrar(l, 1, t);
-                                                }
+                                                    }
                                             }    
+                                            break;
+                                            default:
+                                                printf("El libro no fue a%cadido\n", 164);
+                                            break;
                                         }
+                                        
                                     }
-                                    printf("%cDesea buscar otro libro? Si=1 No=otro", 168);
+                                    printf("%cDesea buscar otro libro? Si=1 No=2", 168);
                                     scanf("%i", &opc);
                                     setbuf(stdin,NULL);
-                                    if(opc==1)
+                                    switch (opc)
                                     {
-                                        goto search;
+                                        case 1:
+                                            goto search;
+                                        break;
+                                        default:
+                                            goto usr;
+                                        break;
                                     }
-                                    else
-                                    {
-                                        goto usr;
-                                    }
+                    
                             }
                             else
                             {
