@@ -157,6 +157,13 @@ int main()//Menus. Funcion principal -Diego Monroy 13/06/2020
                 usr:
                 {
                     system("cls");
+                    if (l->head==NULL)
+                    {
+                        printf("No hay libros disponibles\n");
+                        printf("Enter para continuar\n");
+                        getch();
+                        goto menu;
+                    }
                     printf("-----BIENVENIDO------\n");
                     printf("-----LIBRERIA PUMA---\n\n\n");
                     printf("Hasta %i libros a la venta!!\n\n", l->nlib);
