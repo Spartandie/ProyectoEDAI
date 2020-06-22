@@ -432,8 +432,10 @@ bool borrar(list *l, int c, node* t)
 void existencias(node *t){//Añade nuevas existencias a un libro 
     int extra, cantidad;
     char temp[60];
-    printf("%cCu%cntos libros va agregar a los ya existentes?",168, 160);
+    printf("%cCu%cntos libros va agregar a los ya existentes?\n",168, 160);
+    printf("Libros actuales:%s=>", t->cantidad);
     scanf("%i", &extra);
+    setbuf(stdin, NULL);
     cantidad=atoi(t->cantidad);
     cantidad=cantidad+extra;
     sprintf(temp,"%d\n",cantidad);
