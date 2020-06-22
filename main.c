@@ -3,6 +3,7 @@
 #include<stdlib.h>
 #include "list.h"
 #include "files.h"
+#include "carrito.h"
 #define contra 12345
 /*Notas de compilacion: 
 -getch manda un warning pero no pasa nada

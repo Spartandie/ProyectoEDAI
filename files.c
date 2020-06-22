@@ -1,11 +1,18 @@
 #include "files.h"
 #include<stdio.h>
+#include <stdlib.h>
 int check()
 {
     FILE *bibtemp;
-    bibtemp=fopen("biblioteca.txt","r");    
     char aux;
     int cont=0;
+    bibtemp=fopen("biblioteca.txt","r");  
+    if (bibtemp==NULL)
+    {
+        bibtemp=fopen("biblioteca.txt","w");
+        fclose(bibtemp);
+        return cont;
+    }
     rewind(bibtemp);
     while(!feof(bibtemp))
     {

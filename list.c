@@ -345,15 +345,18 @@ void pedir_datos(list *l){//Función que recaba datos para que se cree un nuevo 
         printf("De el nombre del Libro que va agregar:=> ");
         fflush(stdin);
         fgets(titulo,60,stdin);
-        for(int i =0;i<l->nlib;i++){
-            if(strcmp(titulo,t->titulo)==0){
-                printf("Ese titulo ya existe, introduzca uno diferente\n");
-                getch();
-                goto repetir;
-            }
-            t=t->next;
-        }    
-        t=l->head;
+        if (t!=NULL)
+        {
+            for(int i =0;i<l->nlib;i++){
+                if(strcmp(titulo,t->titulo)==0){
+                    printf("Ese titulo ya existe, introduzca uno diferente\n");
+                    getch();
+                    goto repetir;
+                }
+                t=t->next;
+            }    
+            t=l->head;
+        }
         printf("Autor del Libro que va agregar:=> ");
         fgets(autor,60,stdin);
         printf("Editorial :=> ");
@@ -364,14 +367,18 @@ void pedir_datos(list *l){//Función que recaba datos para que se cree un nuevo 
             printf("ISBN invalido, introduzca uno de 13 caracteres");
             goto repetir;
         }
-        for(int i =0;i<l->nlib;i++){
-            if(strcmp(isbn,t->isbn)==0){
-                printf("Ese isbn ya esta en uso, introduzca uno diferente\n");
-                getch();
-                goto repetir;
-            }
-            t=t->next;
-        } 
+        if (t!=NULL)
+        {
+            for(int i =0;i<l->nlib;i++)
+            {
+                if(strcmp(isbn,t->isbn)==0){
+                    printf("Ese isbn ya esta en uso, introduzca uno diferente\n");
+                    getch();
+                    goto repetir;
+                }
+                t=t->next;
+            } 
+        }
         do{
         printf("El libro, %cTiene pasta dura o pasta blanda ?\n",168);
         printf("Para pasta Blanda (1), para pasta dura (2): => ");
