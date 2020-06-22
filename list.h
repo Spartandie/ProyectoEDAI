@@ -43,7 +43,7 @@ void existencias(node *t);//Aumenta las existencias de un libro existente -Nesto
 
 //Carrito
 clist *create_clist();//crea el carrito -Logan 20/06/2020
-bool is_empty_clist(clist *l);//Comprueba si el carrito esta vacio -Diego 20/06/2020
+bool is_empty_clist(clist *l);//Comprueba si el carrito esta vacio -Logan 20/06/2020
 void remove_cnode(cnode *c);//Remueve un nodo del carrito -Diego 20/06/2020
 void remove_cnodes(clist *c); //Remueve los nodos del carrito -Diego 20/06/2020
 #endif

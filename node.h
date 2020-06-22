@@ -27,7 +27,7 @@ struct _cnode{
 
 //Crea el nodo -Diego 15/06/2020
 node *create_node(char titulo[], char autor[], char editorial[], char isbn[], char formato[], char cantidad[], char precio[]);
-//Crea un nodo del carrito
+//Crea un nodo del carrito -Logan 17/06/2020
 cnode *create_cnode(char titulo[], char autor[], char editorial[], char isbn[], char formato[], char cantidad[], char precio[]);
 bool remove_node(node *n); //Remueve un nodo -Diego 15/06/2020
 #endif

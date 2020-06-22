@@ -9,7 +9,7 @@
 -Se uso setbuf para limpiar la basura del teclado y evitar saltos
 */
 int main()//Menus. Funcion principal -Diego Monroy 13/06/2020
-{   
+{         //Modificada por logan y nestor 19/06/2020, 20/06/2020, 21/06/2020
     int pass;
     int opc;
     int sel, cantidad;
