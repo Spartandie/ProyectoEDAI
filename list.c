@@ -436,9 +436,8 @@ void existencias(node *t){//Añade nuevas existencias a un libro
     scanf("%i", &extra);
     cantidad=atoi(t->cantidad);
     cantidad=cantidad+extra;
-    printf("%i\n", cantidad);
     sprintf(temp,"%d\n",cantidad);
-    printf("valor : %s",temp);
+    printf("Libros disponibles: %s",temp);
     strcpy_s(t->cantidad,60, temp);
 }
 void reclista(list *l, clist *c){
