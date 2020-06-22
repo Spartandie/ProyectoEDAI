@@ -5,7 +5,7 @@
 #include "files.h"
 #include "carrito.h"
 void empty(char temp[], int tam);
-list *create_list()//crea la lista doble -Diego 14/06/2020
+list *create_list()//crea la lista doble -Logan 14/06/2020
 {
     list *t;
     t=(list*)malloc(sizeof(list));
