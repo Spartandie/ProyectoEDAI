@@ -40,7 +40,6 @@ int main()//Menus. Funcion principal -Diego Monroy 13/06/2020
                 if(pass!=contra)
                 {
                     printf("Contrase%ca incorrecta\n", 164);
-                    printf("Enter para continuar\n");
                     system("pause");
                     goto menu;
                 }
@@ -95,7 +94,7 @@ int main()//Menus. Funcion principal -Diego Monroy 13/06/2020
                             }
                             else
                             {
-                                printf("Opci%cn no valida, presiona cualquier tecla para continuar \n",162);
+                                printf("Opci%cn no valida\n",162);
                                 system("pause");
                                 setbuf(stdin, NULL);
                                 goto existencias;
@@ -162,7 +161,6 @@ int main()//Menus. Funcion principal -Diego Monroy 13/06/2020
                     if (l->head==NULL)
                     {
                         printf("No hay libros disponibles\n");
-                        printf("Enter para continuar\n");
                         system("pause");
                         goto menu;
                     }
