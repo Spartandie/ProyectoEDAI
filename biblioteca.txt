@@ -17,7 +17,7 @@ Stephen King
 Debolsillo
 9786073118392
 Pasta dura
-29
+39
 450
 Harry potter y la orden del fenix
 J.K. Rowling
@@ -145,13 +145,6 @@ Debolsillo
 Pasta dura
 8
 449
-Harry potter y la piedra filosofal
-J.K. Rowling
-Salamandra
-9788498386578
-Pasta dura
-102
-265
 El caballero de la armadura oxidada
 Robert Fisher
 Obelisco
@@ -164,5 +157,12 @@ Juan Rulfo
 RM
 9789685208550
 Pasta blanda
-1
+8
 135
+Harry potter y la piedra filosofal
+J.K. Rowling
+Salamandra
+9788498386578
+Pasta dura
+1
+265

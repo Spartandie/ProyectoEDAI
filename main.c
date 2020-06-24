@@ -14,12 +14,13 @@ int main()//Menus. Funcion principal -Diego Monroy 13/06/2020
     int pass;
     int opc;
     int sel, cantidad;
-    char cadena[60]="\0";
-    list *l=create_list();
-    clist *c=create_clist();
-    if(check()>=7)
+    char cadena[60]="\0", temp[60]="\0";
+    list *l=create_list();//O(1)
+    clist *c=create_clist();//O(1)
+    node *t;
+    if(check()>=7)//O(n)
     {
-        refresh(l);
+        refresh(l);//O(n^2)
     }
     menu:
         {
@@ -32,15 +33,15 @@ int main()//Menus. Funcion principal -Diego Monroy 13/06/2020
             scanf("%i", &opc);
             switch (opc)
             {
-            case 1:
+            case 1://O(n)
                 printf("Ingresa la contrase%ca\n=> ", 164);
                 scanf("%i", &pass);
                 setbuf(stdin,NULL);
                 if(pass!=contra)
                 {
                     printf("Contrase%ca incorrecta\n", 164);
-                    printf("Enter para continuar\n");
-                    getch();
+                   
+                    system("pause");
                     goto menu;
                 }
                 admin:
@@ -55,118 +56,122 @@ int main()//Menus. Funcion principal -Diego Monroy 13/06/2020
                     scanf("%i", &opc);
                     switch (opc)
                     {
-                    case '1':
-                        pedir_datos(l);
+                    case 1:
+                        pedir_datos(l);//O(n)
                         goto admin;
                         break;
                     case 2:
                         existencias:
                         {
-                        system("cls");
-                        printf("Para a%cadir nuevas existencias de un libro, elije una opci%cn \n",164, 162);
-                        printf("1)Titulo\n2)Autor\n3)ISBN\n4)Regresar\n=> ");
-                        scanf("%i", &opc);
-                        setbuf(stdin,NULL);
-                        if (opc==1 || opc==2 || opc==3)
+                            if(l->head==NULL)
                             {
-                                    switch (opc)
-                                    {
-                                        case 1:
-                                            printf("Ingrese el titulo del libro: ");
-                                            setbuf(stdin, NULL);
-                                            fgets(cadena, 60, stdin);
-                                            sel=1;
-                                        break;
-                                        case 2:
-                                            printf("Ingrese el autor del libro: ");
-                                            setbuf(stdin, NULL);
-                                            fgets(cadena, 60, stdin);
-                                            sel=2;
-                                        break;
-                                        case 3:
-                                            printf("Ingrese el isbn del libro: ");
-                                            setbuf(stdin, NULL);
-                                            fgets(cadena, 60, stdin);
-                                            sel=3;
-                                        break;
-                                    }
-                                    node *t=buscar_nodo(l, sel, cadena);
-                                    if(t!=NULL)
-                                    {   
-                                        existencias(t);
-                                        printf("%cDesea agregar mas existencias de un libro? Si=1 No=2: =>",186);
-                                        scanf("%i", &opc);
-                                        if(opc==1)
-                                        {
-                                            goto existencias;
-                                        }
-                                        else
-                                        {
-                                            goto admin;
-                                        }
-                                    }
+                                printf("No hay libros disponibles\n");
+                                system("pause");
+                                goto admin;
+                            }
+                            system("cls");
+                            printf("Para a%cadir nuevas existencias de un libro, elije una opci%cn \n",164, 162);
+                            printf("1)Titulo\n2)Autor\n3)ISBN\n4)Regresar\n=> ");
+                            scanf("%i", &opc);
+                            setbuf(stdin,NULL);
+                            if(opc==4)
+                            {
+                                goto admin;
+                            }
+                            t=buscar_por(l, opc);
+                            if(t!=NULL)
+                            {   
+                                existencias(t);//O(1)
+                                printf("%cDesea agregar mas existencias de un libro? Si=1 No=2: =>",186);
+                                scanf("%i", &opc);
+                                if(opc==1)
+                                {
+                                    goto existencias;
+                                }
+                                else
+                                {
+                                    goto admin;
+                                }
+                            }
                             else
                             {
-                                printf("Opci%cn no valida, presiona cualquier tecla para continuar \n",162);
-                                getch();
+                                printf("Opci%cn no valida\n",162);
+                                system("pause");
                                 setbuf(stdin, NULL);
                                 goto existencias;
                             }  
-                        }
-                        else if(opc==4){
-                            goto admin;
-                        } else{
-                            printf("Opcion no valida\nPresione ENTER para continuar...\n");
-                            getch();
-                            goto existencias;
-                        }                        
+                        } 
                         break;
                     case 3:
-                        if(check()<7)
+                    erase:
+                    {
+                        if(is_empty_list(l))//O(n)
                         {
-                            printf("No hay libros para borrar\nPresione enter para continuar\n");
-                            getch();
-                            goto menu;
+                            printf("No hay libros para borrar\n");
+                            system("pause");
+                            goto admin;
                         }
-                        do{
-                            borrar(l, 0, NULL);
+                            system("cls");
+                            printf("Buscar por:\n",164, 162);
+                            printf("1)Titulo\n2)Autor\n3)ISBN\n4)Regresar\n=> ");
+                            scanf("%i", &opc);
+                            setbuf(stdin,NULL);
+                            if (opc==4)
+                            {
+                                goto admin;
+                            }
+                            t=buscar_por(l, opc);
+                            borrar(l, t);
                             printf("Deseas borrar otro libro si(1), no(2)?");
                             scanf("%i", &opc);
-                        }while(opc==1); 
+                            if(opc==1)
+                            {
+                                goto erase;
+                            }
                         goto admin;
-                        break;
+                    }
+                    break;
                     case 4:
-                        print_list(l);
-                        printf("Presione ENTER para continuar....\n");
-                        getch();
+                        if(is_empty_list(l))//O(n)
+                        {
+                            printf("Estrcutrua vacia\n");
+                            system("pause");
+                            goto admin;
+                        }
+                        print_list(l);//O(n)
+                    
+                        system("pause");
                         goto admin;
                         break;
                     case 5:
                         goto menu;
                     break;
                     default:
-                        printf("Opci%cn no v%clida, presiona cualquier tecla para continuar\n",162,134);
-                        getch();
+                        printf("Opci%cn no v%clida\n",162,134);
+                        system("pause");
                         setbuf(stdin, NULL);
                         goto admin;
                         break;
                     }
                 }
                 break;
-            case 2:
+            case 2://O(n)
                 usr:
                 {
                     system("cls");
-                    if (l->head==NULL)
+                    if (l->head==NULL && is_empty_clist(c))
                     {
                         printf("No hay libros disponibles\n");
-                        printf("Enter para continuar\n");
-                        getch();
+                        
+                        system("pause");
                         goto menu;
                     }
                     printf("-----BIENVENIDO------\n");
                     printf("-----LIBRERIA PUMA---\n\n\n");
-                    printf("Hasta %i libros a la venta!!\n\n", l->nlib);
+                    if(l->head!=NULL)
+                    {
+                        printf("Hasta %i libros a la venta!!\n\n", l->nlib);
+                    }
                     printf("Escoja una opci%cn\n",162);
                     printf("1)Ver lista de libros\n2)Buscar libro\n3)Ver carrito\n4)Menu\n=>");
                     scanf("%i", &opc);
@@ -174,45 +179,28 @@ int main()//Menus. Funcion principal -Diego Monroy 13/06/2020
                     switch (opc)
                     {
                     case 1:
-                        reclista(l, c);
+                        reclista(l, c);//O(n^2)
                         goto usr;
                         break;
-                    case 2:
+                    case 2://O(n)
                         search:
                         {
-                            system("cls");
-                            printf("Buscar libro por: \n1)Titulo\n2)Autor\n3)Isbn\n4)Regresar\n=> ");
-                            scanf("%i", &opc);
-                            setbuf(stdin,NULL);
-                            if(opc==4){
-                                goto usr;
-                            }
-                            if (opc==1 || opc==2 || opc==3)
-                            {
-                                    char temp[60]="\0";
-                                    switch (opc)
-                                    {
-                                        case 1:
-                                            printf("Ingrese el titulo del libro:\n=>");
-                                            setbuf(stdin, NULL);
-                                            fgets(cadena, 60, stdin);
-                                            sel=1;
-                                        break;
-                                        case 2:
-                                            printf("Ingrese el autor del libro:\n=> ");
-                                            setbuf(stdin, NULL);
-                                            fgets(cadena, 60, stdin);
-                                            sel=2;
-                                        break;
-                                        case 3:
-                                            printf("Ingrese el isbn del libro:\n=> ");
-                                            setbuf(stdin, NULL);
-                                            fgets(cadena, 60, stdin);
-                                            sel=3;
-                                        break;
-                                    
+                                    system("cls");
+                                    printf("Buscar libro por: \n1)Titulo\n2)Autor\n3)Isbn\n4)Regresar\n=> ");
+                                    scanf("%i", &opc);
+                                    setbuf(stdin,NULL);
+                                    if(opc==4){
+                                        goto usr;
                                     }
-                                    node *t=buscar_nodo(l, sel, cadena);
+                                    if(opc==1 || opc==2 || opc==3)
+                                    {
+                                        t=buscar_por(l, opc);
+                                    }
+                                    else
+                                    {
+                                        goto search;
+                                    }
+                                    
                                     if(t!=NULL)
                                     {
                                         printf("Titulo:%s", t->titulo);
@@ -225,10 +213,10 @@ int main()//Menus. Funcion principal -Diego Monroy 13/06/2020
                                         printf("\n%cDesea a%cadir al carrito el libro? Si=1 No=2\n=> ", 168, 164);
                                         scanf("%i", &opc);
                                         setbuf(stdin,NULL);
-                                        switch (opc)
+                                        switch (opc)//O(n)
                                         {
                                             case 1:
-                                                if(add_carrito(c,t))
+                                                if(add_carrito(c,t, NULL))//O(n)
                                                 {
                                                     cantidad=atoi(t->cantidad);
                                                     cantidad--;
@@ -237,7 +225,7 @@ int main()//Menus. Funcion principal -Diego Monroy 13/06/2020
                                                     printf("Libro a%cadido!\n",164);
                                                     if(strcmp("0\n", t->cantidad)==0)
                                                     {
-                                                        borrar(l, 1, t);
+                                                        borrar(l, t);//O(n)
                                                     }
                                             }    
                                             break;
@@ -247,7 +235,7 @@ int main()//Menus. Funcion principal -Diego Monroy 13/06/2020
                                         }
                                         
                                     }
-                                    printf("%cDesea buscar otro libro? Si=1 No=2", 168);
+                                    printf("%cDesea buscar otro libro? Si=1 No=2\n=> ", 168);
                                     scanf("%i", &opc);
                                     setbuf(stdin,NULL);
                                     switch (opc)
@@ -260,17 +248,9 @@ int main()//Menus. Funcion principal -Diego Monroy 13/06/2020
                                         break;
                                     }
                     
-                            }
-                            else
-                            {
-                                printf("Opci%cn no v%clida, presiona cualquier tecla para continuar\n",162,134);
-                                getch();
-                                setbuf(stdin, NULL);
-                                goto search;
-                            }                            
-                        }
+                            }                          
                         break;
-                    case 3:
+                    case 3://O(n)
                         carrito:
                         {
                             if(see_carrito(c, l))
@@ -284,8 +264,8 @@ int main()//Menus. Funcion principal -Diego Monroy 13/06/2020
                         goto menu;
                         break;
                     default:
-                        printf("Opci%cn no v%clida, presiona cualquier tecla para continuar\n",162,134);
-                        getch();
+                        printf("Opci%cn no v%clida\n",162,134);
+                        system("pause");
                         setbuf(stdin, NULL);
                         goto usr;
                         break;
@@ -293,7 +273,7 @@ int main()//Menus. Funcion principal -Diego Monroy 13/06/2020
                 }
                 break;
             case 3:
-                print_txt(l);
+                print_txt(l);//O(n)
                 empty_list(l);
                 free(l);
                 remove_cnodes(c);
@@ -301,12 +281,11 @@ int main()//Menus. Funcion principal -Diego Monroy 13/06/2020
                 return 1;
                 break;
             default:
-                printf("Opci%cn no v%clida, presiona cualquier tecla para continuar\n",162,134);
-                getch();
+                printf("Opci%cn no v%clida\n",162,160);
+                system("pause");
                 setbuf(stdin, NULL);
                 goto menu;
                 break;
             }
         }
-    }
 }

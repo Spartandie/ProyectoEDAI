@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include<string.h>
-node *create_node(char titulo[], char autor[], char editorial[], char isbn[], char formato[], char cantidad[], char precio[]){//crea nodo -Diego 14/06/2020
+node *create_node(char titulo[], char autor[], char editorial[], char isbn[], char formato[], char cantidad[], char precio[]){
     node *t;
     t=(node*)malloc(sizeof(node));
     t->next=NULL;
@@ -16,7 +16,7 @@ node *create_node(char titulo[], char autor[], char editorial[], char isbn[], ch
     strcpy_s(t->precio, 60, precio);
     return t;
 }
-cnode *create_cnode(char titulo[], char autor[], char editorial[], char isbn[],char formato[], char cantidad[], char precio[]){//crea nodo carrito -Diego 20/06/2020
+cnode *create_cnode(char titulo[], char autor[], char editorial[], char isbn[],char formato[], char cantidad[], char precio[]){
     cnode *t;
     t=(cnode*)malloc(sizeof(cnode));
     t->next=NULL;
@@ -38,5 +38,6 @@ bool remove_node(node *n){
 }
 void remove_cnode(cnode *c)
 {
+    c->next=NULL;
     free(c);
 }
