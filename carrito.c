@@ -95,7 +95,7 @@ bool see_carrito(clist *c, list *l)
         print_clist(c, l);
         return true;
     }
-    printf("Carrito vacio\nPresiona enter para continuar");
+    printf("Carrito vacio\n");
     system("pause");
     return false;
 }   
@@ -140,7 +140,6 @@ void print_clist(clist *c, list *l)
             remove_cnodes(c);
             printf("Gracias por comprar!!\n");
             printf("Deje que otro usuario explore el catalogo\n");
-            printf("Enter para continuar\n");
             system("pause");
             return;
         break;
