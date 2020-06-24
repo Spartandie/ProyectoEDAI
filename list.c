@@ -361,11 +361,12 @@ void pedir_datos(list *l){
         fgets(autor,60,stdin);
         printf("Editorial :=> ");
         fgets(editorial,60,stdin);
+        repetirisbn:
         printf("ISBN del libro(13 caracteres ):=> ");
         fgets(isbn,60,stdin);
         if(strlen(isbn)!=14){
-            printf("ISBN invalido, introduzca uno de 13 caracteres");
-            goto repetir;
+            printf("ISBN invalido, introduzca uno de 13 caracteres\n");
+            goto repetirisbn;
         }
         if (t!=NULL)
         {
@@ -473,7 +474,6 @@ void reclista(list *l, clist *c){
                     
                     printf("Libro a%cadido!\n",164);
                 }
-                printf("Presiona enter para continuar\n");
                 system("pause");    
                 break;
 
@@ -481,7 +481,6 @@ void reclista(list *l, clist *c){
                 break;
 
             default:
-                printf("Opcion no valida, presiona cualquier tecla para continuar");
                 system("pause");
                 break;
         }
