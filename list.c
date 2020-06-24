@@ -13,7 +13,7 @@ list *create_list()//crea la lista doble -Logan 14/06/2020
     t->tail=NULL;
     return t;
 }
-clist *create_clist()//crea el carrito -Diego 14/06/2020
+clist *create_clist()
 {
     clist *t;
     t=(clist*)malloc(sizeof(clist));
@@ -56,8 +56,8 @@ bool refresh(list *l)
         return false;
     }
     rewind(bib);
-    empty_list(l);
-    while (!feof(bib))
+    empty_list(l);//O(n)
+    while (!feof(bib))//O(n)
     {
         aux='\0';
         aux=fgetc(bib);
@@ -94,7 +94,7 @@ bool refresh(list *l)
                     strcpy_s(precio, 60, temp);
                     break;
             }
-            empty(temp , 60);
+            empty(temp , 60);//O(n)
             if (renglon==7)
             {
                 refresh_list(l, titulo, autor, editorial, isbn, formato, cantidad, precio);
@@ -112,7 +112,7 @@ bool refresh(list *l)
     fclose(bib);
     return true;
 }
-void empty(char temp[], int tam)//Vacia la variable temporal Diego -14/06/2020
+void empty(char temp[], int tam)
 {
     for (int i = 0; i < tam; i++)
     {
@@ -235,7 +235,7 @@ node *buscar_nodo(list *l,int sel, char cadena[]){
                             {
                                 printf("Opcion no v%clida\n", 160);
                                 printf("Presiona enter para continuar\n");
-                                getch();
+                                system("pause");
                                 goto opc;
                             }
                             temp=l->head;
@@ -333,7 +333,7 @@ bool remove_lib(list *l, node *t)
     free(t);
     return true;
 }
-void pedir_datos(list *l){//Función que recaba datos para que se cree un nuevo libro Nestor-18/06/2020
+void pedir_datos(list *l){
     char titulo[60],autor[60], editorial[60], isbn[60],formato[60],cantidad[60],precio[60];
     node *t;
     int opc;
@@ -347,10 +347,10 @@ void pedir_datos(list *l){//Función que recaba datos para que se cree un nuevo 
         fgets(titulo,60,stdin);
         if (t!=NULL)
         {
-            for(int i =0;i<l->nlib;i++){
+            for(int i =0;i<l->nlib;i++){//O(n)
                 if(strcmp(titulo,t->titulo)==0){
                     printf("Ese titulo ya existe, introduzca uno diferente\n");
-                    getch();
+                    system("pause");
                     goto repetir;
                 }
                 t=t->next;
@@ -373,7 +373,7 @@ void pedir_datos(list *l){//Función que recaba datos para que se cree un nuevo 
             {
                 if(strcmp(isbn,t->isbn)==0){
                     printf("Ese isbn ya esta en uso, introduzca uno diferente\n");
-                    getch();
+                    system("pause");
                     goto repetir;
                 }
                 t=t->next;
@@ -402,34 +402,21 @@ void pedir_datos(list *l){//Función que recaba datos para que se cree un nuevo 
         insertar_final(l,titulo,autor,editorial,isbn,formato,precio,cantidad);
         printf("Libro agregado con exito!");
         printf("Presione ENTER para continuar...");
-        getch();
+        system("pause");
 }
 
-bool borrar(list *l, int c, node* t)
+bool borrar(list *l,  node* t)
 {
-    char titulo[60]="\0";
-    if(c==0)
-    {
-        printf("Que libro se quiere borrar?\n");
-        setbuf(stdin, NULL);
-        fgets(titulo, 60, stdin);
-        node *t=buscar_nodo(l, 1, titulo);
-        if(t!=NULL){
-            remove_lib(l, t);
-            return true;
-        }
-        else{
-            return false;
-        }
-    }
-    else
-    {
+    if(t!=NULL){
         remove_lib(l, t);
+        printf("Titulo borrado con exito\n");
         return true;
     }
-    
+    else{
+        return false;
+    } 
 }
-void existencias(node *t){//Añade nuevas existencias a un libro 
+void existencias(node *t){ 
     
         int extra, cantidad, opc;
         char temp[60];
@@ -462,7 +449,7 @@ void reclista(list *l, clist *c){
         printf("Salir (o)\n");
         scanf("%c", &qst);
         setbuf(stdin, NULL);
-        switch(qst){
+        switch(qst){//O(n)
             case 's':
                 rec = rec->next;
                 break;
@@ -471,8 +458,8 @@ void reclista(list *l, clist *c){
                 rec = rec->prev;
                 break;
             
-            case 'c':
-                if(add_carrito(c,rec))
+            case 'c'://O(n)
+                if(add_carrito(c,rec, NULL))
                 {
                     cantidad=atoi(rec->cantidad);
                     cantidad--;
@@ -481,13 +468,13 @@ void reclista(list *l, clist *c){
                     rec=rec->next;
                     if(strcmp("0\n", rec->prev->cantidad)==0)
                     {
-                        borrar(l, 1, rec->prev);
+                        borrar(l, rec->prev);
                     }
                     
                     printf("Libro a%cadido!\n",164);
                 }
                 printf("Presiona enter para continuar\n");
-                getch();    
+                system("pause");    
                 break;
 
             case 'o':
@@ -495,10 +482,10 @@ void reclista(list *l, clist *c){
 
             default:
                 printf("Opcion no valida, presiona cualquier tecla para continuar");
-                getch();
+                system("pause");
                 break;
         }
-    } while (qst!= 'o');
+    } while (qst!= 'o');//O(n)
 
 
 }
@@ -519,7 +506,7 @@ void remove_cnodes(clist *c)
             c->tail=NULL;
             break;
         }
-        if(t->next!=c->tail)//falta caso de un nod
+        if(t->next!=c->tail)
         {
             t=t->next;
         }
@@ -552,4 +539,39 @@ bool remove_nodes(list *l)
     remove_node(l->head);
     l->head = t;
     return true;
+}
+node  *buscar_por(list *l, int opc)
+{
+    buscar:
+    {
+                            char cadena[60];
+                            char temp[60]="\0";
+                            switch (opc)
+                            {
+                                case 1:
+                                    printf("Ingrese el titulo del libro:\n=>");
+                                    setbuf(stdin, NULL);
+                                    fgets(cadena, 60, stdin);
+                                break;
+                                case 2:
+                                    printf("Ingrese el autor del libro:\n=> ");
+                                    setbuf(stdin, NULL);
+                                    fgets(cadena, 60, stdin);
+                                break;
+                                case 3:
+                                    printf("Ingrese el isbn del libro:\n=> ");
+                                    setbuf(stdin, NULL);
+                                    fgets(cadena, 60, stdin);
+                                break;
+                                default:
+                                    printf("Opcion no valida\n");
+                                    system("pause");
+                                    return NULL;
+                                break;
+                                    
+                            }
+                            node *t=buscar_nodo(l , opc, cadena);
+                            return t;
+    }
+            
 }

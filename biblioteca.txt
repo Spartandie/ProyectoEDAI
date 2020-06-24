@@ -17,7 +17,7 @@ Stephen King
 Debolsillo
 9786073118392
 Pasta dura
-29
+39
 450
 Harry potter y la orden del fenix
 J.K. Rowling
@@ -164,5 +164,5 @@ Juan Rulfo
 RM
 9789685208550
 Pasta blanda
-1
+8
 135

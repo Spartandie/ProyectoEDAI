@@ -33,8 +33,9 @@ bool insertar_final(list* l, char titulo[], char autor[], char editorial[], char
 void reclista(list *l, clist *c);//Recorre la lista -Logan 19/06/2020
 //Modificada por Diego
 
-bool borrar(list *l, int c, node *t);//Borra un libro -Diego  15/06/2020
+bool borrar(list *l, node *t);//Borra un libro -Diego  15/06/2020
 node *buscar_nodo(list *l,int sel, char cadena[]);//Busca un nodo -Logan 15/06/2020
+node *buscar_por(list *l, int opc);//Da opcion de buscar por -Diego 22/06/2020
 //Modificada por Diego 16/06/2020
 
 void pedir_datos(list *l);//Pide cada dato para almacenarlos en un nodo -Nestor 18/06/2020
